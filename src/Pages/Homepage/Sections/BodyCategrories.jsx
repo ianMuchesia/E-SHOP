@@ -41,7 +41,7 @@ const BodyCategrories = () => {
           <img src={mens_collection} className="rounded-xl " />
           <div className="absolute bottom-10 left-2 sm:bottom-32 sm:left-4">
             <h3 className="text-2xl">Shop</h3>
-            <h2 className="text-sm text-white mt-2 font-bold sm:text-xl">
+            <h2 className="text-sm text-white mt-2 font-bold sm:text-xl xl:text-4xl">
               Men Collection
             </h2>
             <button className="bg-blue-500 text-white border-none mt-2 p-2 font-semibold rounded-lg cursor-pointer text-sm sm:text-lg">
@@ -54,10 +54,10 @@ const BodyCategrories = () => {
           <img src={womens_collection} className="rounded-xl" />
           <div className="absolute bottom-10 right-2 top-10 sm:top-32">
             <h3 className="text-2xl text-center">Shop</h3>
-            <h2 className="text-sm text-white mt-2 font-bold sm:text-xl">
+            <h2 className="text-sm text-white mt-2 font-bold sm:text-xl xl:text-4xl">
               Women Collection
             </h2>
-            <button className="bg-blue-500 text-white border-none mt-2 p-2 font-semibold rounded-lg cursor-pointer text-sm ml-5 sm:text-xl">
+            <button className="bg-blue-500 text-white border-none mt-2 p-2 font-semibold rounded-lg cursor-pointer text-sm ml-5 sm:text-xl xl:ml-20">
               Shop Now
             </button>
           </div>
@@ -74,7 +74,7 @@ const BodyCategrories = () => {
             />
             <div className="absolute bottom-2 flex flex-col justify-center items-center sm:left-2 sm:bottom-8">
               <h3 className="text-xl">Shop</h3>
-              <h2 className="text-lg text-white  font-bold">Mobile Phones</h2>
+              <h2 className="text-lg text-white  font-bold xl:text-2xl">Mobile Phones</h2>
               <button className="bg-blue-500 text-white border-none mt-2 p-2 font-semibold rounded-lg cursor-pointer text-sm ml-5 sm:h-14 sm:w-28 sm:text-lg">
                 Shop Now
               </button>
@@ -87,11 +87,11 @@ const BodyCategrories = () => {
           <div className="grid grid-cols-1 place-items-center ">
             <img
               src={furniture}
-              className="absolute top-2 h-40 sm:left-4 sm:h-72"
+              className="absolute top-2 h-40 sm:left-4 sm:h-72 xl:h-[350px]"
             />
             <div className="absolute bottom-2 flex flex-col justify-center items-center sm:right-2 sm:bottom-8">
               <h3 className="text-xl">Shop</h3>
-              <h2 className="text-lg text-white  font-bold">Furniture</h2>
+              <h2 className="text-lg text-white  font-bold xl:text-2xl">Furniture</h2>
               <button className="bg-blue-500 text-white border-none mt-2 p-2 font-semibold rounded-lg cursor-pointer text-sm ml-5 sm:h-14 sm:w-28 sm:text-lg">
                 Shop Now
               </button>

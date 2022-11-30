@@ -1,5 +1,6 @@
 import { collection, getDocs } from "@firebase/firestore";
 import React, { useState, useEffect } from "react";
+import Sidebar from "../../components/Sidebar";
 import Spinner from "../../components/Spinner";
 import { database } from "../../Config/fireBaseConfig";
 
@@ -29,9 +30,11 @@ const Shop = () => {
   
   
   return (
-    <div className="p-5 font-sans">
-      <div className="bg-white p-5 mt-15 rounded-3xl grid place-items-center gap-4">
-        <h2 className="text-2xl">Products</h2>
+    <div className="p-5 font-sans sm:grid sm:grid-cols-3 gap-4 lg:grid-cols-4 ">
+      <Sidebar/>
+      <div className="bg-white p-5 mt-15 rounded-3xl sm:col-span-2 lg:col-span-3 ">
+      <h2 className="text-2xl text-center sm:m-2 sm:font-bold">Products</h2>
+        <div className="grid place-items-center gap-4  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <hr className="w-full border-2 sm:hidden"/>
         {!loading && products.map((product) => {
           return (
@@ -48,6 +51,7 @@ const Shop = () => {
             </div>
           );
         })}
+        </div>
       </div>
     </div>
   );
