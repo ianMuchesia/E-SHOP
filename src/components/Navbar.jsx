@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../../assets/shopee.tw_-_png_0-removebg-preview.png";
+import logo from "../assets/shopee.tw_-_png_0-removebg-preview.png";
 import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
