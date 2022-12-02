@@ -4,6 +4,7 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { BsCart2 } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 //tailwind classes
 const styles = {
@@ -24,6 +25,7 @@ const styles = {
 }
 
 const Navbar = () => {
+  const quantity = useSelector(state=>state.cart.totalQuantity)
   return (
     <header >
       <nav className={styles.nav}>
@@ -66,6 +68,7 @@ const Navbar = () => {
           
           
           <BsCart2  size={40} className={styles.cart}/>
+          <h3 className="text-xl">{quantity}</h3>
         </div>
       </nav>
     </header>
