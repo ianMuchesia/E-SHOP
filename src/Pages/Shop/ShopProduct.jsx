@@ -21,6 +21,7 @@ const ShopProduct = ({ id, image, name, price }) => {
         name,
         id,
         price,
+        image,
       })
     );
   };

@@ -23,8 +23,10 @@ const cartSlice= createSlice({
                     price: newItem.price,
                     quantity: 1,
                     totalPrice: newItem.price,
-                    name: newItem.name
+                    name: newItem.name,
+                    image: newItem.image
                 })
+                //when we push the items to array the quantity need to be increased
                 state.totalQuantity++
             }
 
