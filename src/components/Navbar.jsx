@@ -14,7 +14,7 @@ const styles = {
     div_category:`h-12 flex items-center gap-2 lg:gap-4 bg-blue-700 p-3 text-white rounded-lg`,
     heading_category:`font-semibold hidden md:block`,
     div_search_input:`h-13 relative md:flex items-center text-gray-200 focus-within:text-black space-x-6 hidden ml-3 lg:ml-5`,
-    search_input:`pr-3 pl-10 px-3 py-2 font-semibold placeholder-gray-200 text-black  rounded-xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 lg:w-[400px] bg-[#bbb] h-13`,
+    search_input:`pr-3 pl-10 px-3 py-2 font-semibold placeholder-gray-200 text-black  rounded-xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2  w-[250px] lg:w-[400px] bg-[#bbb] h-13`,
     search_icon:`pointer-events-none w-5 h-5 absolute top-1/2 transform -translate-y-1/2 right-2 lg:right-5`,
     div_2:`flex items-center h-13`,
     div_account_button:`relative flex items-center text-black focus-within:text-black space-x-6 `,
