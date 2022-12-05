@@ -1,10 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+import { collection, getDocs } from "@firebase/firestore";
+import { database } from "../Config/fireBaseConfig";
+import {addDoc} from 'firebase/firestore'
 const initialState = {
     itemsList:[],
     totalQuantity:0,
     showCart: false
 }
+
+
+const userCollectionRef = collection(database,"technicians")
+
+
+export const sendDataToFirestore=(data)=> {
+  return async (dispatch) => {
+    const sendRequest=async()=>{
+        await addDoc(userCollectionRef, data)
+    }
+    try {
+      sendRequest()
+      dispatch({ type: 'SEND_DATA_TO_FIRESTORE_SUCCESS', payload: data });
+    } catch (error) {
+      dispatch({ type: 'SEND_DATA_TO_FIRESTORE_ERROR', payload: error });
+    }
+  };
+}
+
+
 const cartSlice= createSlice({
     name:'cart',
     initialState,
