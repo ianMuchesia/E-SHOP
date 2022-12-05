@@ -8,7 +8,8 @@ import ShopProduct from "./ShopProduct";
 
 const Shop = ({product}) => {
   
-
+const user = useSelector(state=>state.auth.user)
+console.log(user)
   return (
     <div className="p-5 font-sans sm:grid sm:grid-cols-3 gap-4 lg:grid-cols-4 ">
       <Sidebar />

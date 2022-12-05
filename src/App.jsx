@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "./store/productSlice";
 import Spinner from "./components/Spinner";
 import Cart from "./Pages/Cart/Cart"
+import Login from './Login/Login';
+import Checkout from './Checkout/Checkout';
 function App() {
    const cartItems = useSelector((state) =>  state.cart.itemsList);
 
@@ -32,7 +34,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="Shop" element={<Shop product={product} />} />
         <Route path="Trial" element={<Trial />} />
-        
+        <Route path="Login" element={<Login />} />
+        <Route path="Checkout" element={<Checkout />} />
       </Routes>
     </BrowserRouter>
   );
