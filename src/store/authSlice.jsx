@@ -1,40 +1,50 @@
 
 import { createSlice } from '@reduxjs/toolkit';
-
+ 
 const initialState = {
   isAuthenticated: false,
-  user: true,
-  error: null,
   isAuthenticating: false,
+  userID:""
 };
 
+/* export const loginEmailAndPassword=(email,password)=>{
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        toast.success("Login successful");
+        dispatch(login)
+        navigate("/");
+        // ...
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        toast.error(errorMessage);
+      });
+} */
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     login: (state, action) => {
-      const { email, password } = action.payload;
+        state.isAuthenticated = false;
       state.isAuthenticating = true;
-      state.error = null;
     },
     loginSuccess: (state, action) => {
-      const user = action.payload;
+        const id = action.payload
+        state.userID = id
       state.isAuthenticated = true;
-      state.user = user;
-      state.isAuthenticating = false;
-    },
-    loginError: (state, action) => {
-      const error = action.payload;
-      state.error = error;
       state.isAuthenticating = false;
     },
     logout: (state) => {
-      firebase.auth().signOut();
+     
       state.isAuthenticated = false;
-      state.user = null;
+      state.isAuthenticating = false;
     },
   },
 });
 
-export const { login, loginSuccess, loginError, logout } = authSlice.actions;
+export const { login, loginSuccess,  logout } = authSlice.actions;
+
 export default authSlice.reducer

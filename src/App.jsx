@@ -10,6 +10,7 @@ import Spinner from "./components/Spinner";
 import Cart from "./Pages/Cart/Cart"
 import Login from './Login/Login';
 import Checkout from './Checkout/Checkout';
+import Registration from './Login/Registration';
 function App() {
    const cartItems = useSelector((state) =>  state.cart.itemsList);
 
@@ -17,7 +18,9 @@ function App() {
   const dispatch = useDispatch();
 
   const product = useSelector((state) => state.product);
-
+  //is user logged in
+  const user = useSelector(state=>state.auth.userID)
+  console.log(user)
   //fetch products from firestore
   useEffect(() => {
     dispatch(fetchProducts());
@@ -32,10 +35,11 @@ function App() {
       <Cart  cartItems={cartItems} open={open} setOpen={setOpen}/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="Shop" element={<Shop product={product} />} />
+        <Route path="Shop" element={<Shop product={product} user={user} />} />
         <Route path="Trial" element={<Trial />} />
-        <Route path="Login" element={<Login />} />
+        <Route path="Login" element={<Login />} user={user} />
         <Route path="Checkout" element={<Checkout />} />
+        <Route path="Registration" element={<Registration user={user} />} />
       </Routes>
     </BrowserRouter>
   );
