@@ -3,13 +3,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import CartItem from "./CartItem";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import {doc, setDoc} from "firebase/firestore"
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import {doc, addDoc , collection} from "firebase/firestore"
 import { database } from "../../Config/fireBaseConfig";
-export default function Cart({ open, setOpen, cartItems }) {
+export default function Cart({ open, setOpen, user }) {
   //total amount of products
+   const navigate = useNavigate()
+  const cartItems = useSelector((state) =>  state.cart.itemsList);
 
- 
   let total=0;
   cartItems.forEach(item=>{
      total += item.totalPrice
@@ -17,13 +18,21 @@ export default function Cart({ open, setOpen, cartItems }) {
 
 
   const handleSubmit=async()=>{
-    await setDoc(doc(database,"Cart","id"),{
-      
-      cart:cartItems
-    })
+    if(user){
+      await addDoc(collection(database,"Cart"),{
+        cartId:user.uid,
+        items:cartItems,
+      })
+      navigate("/Checkout")
+      setOpen(false)
+    }else{
+      navigate("/Login")
+      setOpen(false)
+    }
+    
   }
  
-  const user = useSelector(state=>state.auth.user)
+  
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -85,6 +94,7 @@ export default function Cart({ open, setOpen, cartItems }) {
                                 image={product.image}
                                 totalPrice={product.totalPrice}
                                 price={product.price}
+                                user={user}
                               />
                             ))}
                           </ul>
@@ -102,7 +112,7 @@ export default function Cart({ open, setOpen, cartItems }) {
                       </p>
                       <div className="mt-6">
                         <Link
-                          to={`${user?"/Checkout":"/Login"}`}
+                          to="Login"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                           onClick={handleSubmit}
                         >
