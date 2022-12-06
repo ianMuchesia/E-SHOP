@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 import Home from "./Pages/Homepage/Home";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -7,20 +7,31 @@ import Shop from "./Pages/Shop/Shop";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "./store/productSlice";
 import Spinner from "./components/Spinner";
-import Cart from "./Pages/Cart/Cart"
-import Login from './Login/Login';
-import Checkout from './Checkout/Checkout';
-import Registration from './Login/Registration';
-function App() {
-   const cartItems = useSelector((state) =>  state.cart.itemsList);
+import Cart from "./Pages/Cart/Cart";
+import Login from "./Login/Login";
+import Checkout from "./Checkout/Checkout";
+import Registration from "./Login/Registration";
+import { getAuth } from "firebase/auth";
 
-   const [open, setOpen] = useState(false)
+function App() {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+
+  //user signed in?
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  getAuth().onAuthStateChanged((user) => {
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
   const product = useSelector((state) => state.product);
   //is user logged in
-  const user = useSelector(state=>state.auth.userID)
-  console.log(user)
+
   //fetch products from firestore
   useEffect(() => {
     dispatch(fetchProducts());
@@ -31,15 +42,15 @@ function App() {
   //console.log(product.products)
   return (
     <BrowserRouter>
-      <Navbar setOpen={setOpen}/>
-      <Cart  cartItems={cartItems} open={open} setOpen={setOpen}/>
+      <Navbar setOpen={setOpen} user={user} />
+      <Cart open={open} setOpen={setOpen} user={user} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="Shop" element={<Shop product={product} user={user} />} />
+        <Route path="Shop" element={<Shop product={product} />} />
         <Route path="Trial" element={<Trial />} />
-        <Route path="Login" element={<Login />} user={user} />
+        <Route path="Login" element={<Login />} />
         <Route path="Checkout" element={<Checkout />} />
-        <Route path="Registration" element={<Registration user={user} />} />
+        <Route path="Registration" element={<Registration />} />
       </Routes>
     </BrowserRouter>
   );

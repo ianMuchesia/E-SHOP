@@ -4,7 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isAuthenticated: false,
   isAuthenticating: false,
-  userID:""
+  
+  
 };
 
 /* export const loginEmailAndPassword=(email,password)=>{
@@ -32,13 +33,11 @@ const authSlice = createSlice({
       state.isAuthenticating = true;
     },
     loginSuccess: (state, action) => {
-        const id = action.payload
-        state.userID = id
+       
       state.isAuthenticated = true;
       state.isAuthenticating = false;
     },
     logout: (state) => {
-     
       state.isAuthenticated = false;
       state.isAuthenticating = false;
     },
