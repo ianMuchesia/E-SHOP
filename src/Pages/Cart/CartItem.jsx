@@ -14,7 +14,7 @@ const styles = {
 };
 
 const CartItem = ({ image, name, quantity, totalPrice,id ,price}) => {
-  console.log(totalPrice)
+  
 
     const dispatch = useDispatch()
 
@@ -33,6 +33,7 @@ const CartItem = ({ image, name, quantity, totalPrice,id ,price}) => {
     const handleRemove=()=>{
       dispatch(removeItemFromCart(id))
     }
+    
 
 
   return (

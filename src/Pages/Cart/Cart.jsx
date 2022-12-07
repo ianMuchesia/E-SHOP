@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import CartItem from "./CartItem";
 import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import {doc, addDoc , collection} from "firebase/firestore"
+import {doc, setDoc , collection} from "firebase/firestore"
 import { database } from "../../Config/fireBaseConfig";
 export default function Cart({ open, setOpen, user }) {
   //total amount of products
@@ -15,14 +15,17 @@ export default function Cart({ open, setOpen, user }) {
   cartItems.forEach(item=>{
      total += item.totalPrice
   })
+   
+  const submitCart=async()=>{
+    await setDoc(doc(database,"Cart",user.uid),{
+      cartId:user.uid,
+      items:cartItems,
+    })
+  }
 
-
-  const handleSubmit=async()=>{
+  const handleSubmit=()=>{
     if(user){
-      await addDoc(collection(database,"Cart"),{
-        cartId:user.uid,
-        items:cartItems,
-      })
+      submitCart()
       navigate("/Checkout")
       setOpen(false)
     }else{
