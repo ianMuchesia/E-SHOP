@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { database } from "../../Config/fireBaseConfig";
 import { getDocs, collection } from "firebase/firestore";
 const Trial = () => {
-  const AllProducts = collection(database, "Cart");
+  /* const AllProducts = collection(database, "Cart");
   const [cart , setCart] = useState([])
 
   
@@ -15,9 +15,11 @@ const Trial = () => {
     fetchProducts()
   },[])
   const oneCart = cart.map(item=>item.cartId)
-      console.log(oneCart)
+      console.log(oneCart) */
   return (
-    <div>Trial</div>
+    <div>
+
+    </div>
   )
 }
 
