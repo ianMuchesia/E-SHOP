@@ -36,6 +36,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
+  
 
   //loading spinner
   if (product.loading) return <Spinner message="loading..." />;
@@ -45,11 +46,11 @@ function App() {
       <Navbar setOpen={setOpen} user={user} />
       <Cart open={open} setOpen={setOpen} user={user} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home product={product}/>} />
         <Route path="Shop" element={<Shop product={product} />} />
         <Route path="Trial" element={<Trial />} />
         <Route path="Login" element={<Login />} />
-        <Route path="Checkout" element={<Checkout />} />
+        <Route path="Checkout" element={<Checkout user={user}/>} />
         <Route path="Registration" element={<Registration />} />
       </Routes>
     </BrowserRouter>
