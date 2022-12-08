@@ -56,9 +56,7 @@ const Login = () => {
         toast.success("Login Succesfully");
         // ...
         const id = user.uid
-        dispatch(loginSuccess({
-            id,
-        }))
+        dispatch(loginSuccess())
         navigate("/");
       })
       .catch((error) => {
