@@ -12,7 +12,8 @@ import Login from "./Login/Login";
 import Checkout from "./Checkout/Checkout";
 import Registration from "./Login/Registration";
 import { getAuth } from "firebase/auth";
-
+import Footer from './components/Footer'
+import SingleProduct from "./Pages/Shop/SingleProduct";
 function App() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -48,11 +49,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Home product={product}/>} />
         <Route path="Shop" element={<Shop product={product} />} />
+        <Route path="Shop/:productID" element={<SingleProduct product={product} />} />
+        
         <Route path="Trial" element={<Trial />} />
         <Route path="Login" element={<Login />} />
         <Route path="Checkout" element={<Checkout user={user}/>} />
         <Route path="Registration" element={<Registration />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

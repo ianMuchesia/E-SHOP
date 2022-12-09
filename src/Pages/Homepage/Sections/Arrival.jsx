@@ -4,6 +4,7 @@ import '@splidejs/react-splide/css';
 
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import styled from "styled-components";
+import ArrivalItem from './ArrivalItem';
 
 
 
@@ -32,7 +33,7 @@ const Featured = ({product}) => {
           perPage: 1,
           perMove:1,
           trimSpace: 'move',
-          focus    : 'center',
+          
           gap: "0.4rem",
           arrows: true,
           pagination: false,
@@ -64,17 +65,12 @@ const Featured = ({product}) => {
        { feature.map(item=>{
         return(
             <SplideSlide key={item.id} className="border-2 p-2 rounded-lg" >
-                <div className={styles.body}>
-            <div className={styles.second_div}>
-              <img src={item.imageUrl} alt="" className={styles.image} />
-            </div>
-            <p className={styles.name}>{item.name}</p>
-            <h3 className={styles.price}>Ksh.{item.price.toLocaleString()}</h3>
-            <button className={styles.button}>
-              Add to Cart
-            </button>
-           
-            </div>
+               <ArrivalItem
+                name={item.name}
+                price={item.price}
+                image={item.imageUrl}
+                id={item.id}
+              />
           </SplideSlide>
         )
        }) }

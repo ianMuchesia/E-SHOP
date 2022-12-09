@@ -4,27 +4,21 @@ import '@splidejs/react-splide/css';
 
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import styled from "styled-components";
+import FeaturedItem from './FeaturedItem';
 
 
 
 
 
-const styles = {
-    body: `grid place-items-center mb-5`,
-    second_div: `grid place-items-center `,
-    image: `h-[192px] w-[192px] rounded-lg border-2 border-gray-100 object-cover`,
-    name: `text-sm`,
-    price: `font-bold text-blue-500`,
-    button: `bg-gray-400 text-white rounded-[8px] text-xs px-5 py-3 hover:bg-blue-600`,
-    line: `w-full border-1 mb-6`,
-  };
+
+
 const Featured = ({product}) => {
     const feature =product.products.filter(item=>item.price<2000)
-    
+   
   return (
     <div className='p-10 bg-white my-6 rounded-lg'>
         <h1 className="text-2xl">What's cheaper this holiday?</h1>
-        <hr className={styles.line} />
+        <hr className="w-full border-1 mb-6" />
           <Splide
         options={{
           type: "loop",
@@ -63,18 +57,14 @@ const Featured = ({product}) => {
       >
        { feature.map(item=>{
         return(
+
             <SplideSlide key={item.id} className="border-2 p-2 rounded-lg" >
-                <div className={styles.body}>
-            <div className={styles.second_div}>
-              <img src={item.imageUrl} alt="" className={styles.image} />
-            </div>
-            <p className={styles.name}>{item.name}</p>
-            <h3 className={styles.price}>Ksh.{item.price.toLocaleString()}</h3>
-            <button className={styles.button}>
-              Add to Cart
-            </button>
-           
-            </div>
+              <FeaturedItem
+              name={item.name}
+              price={item.price}
+              image={item.imageUrl}
+              id={item.id}
+              />
           </SplideSlide>
         )
        }) }

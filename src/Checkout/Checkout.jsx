@@ -114,7 +114,7 @@ const Checkout = () => {
 
 
       </form>
-      <div className='grid mb-16 mt-10 p-5 bg-slate-400 rounded-md'>
+      <div className='grid mb-16 mt-10 p-5 bg-[#c7c4c4] rounded-md'>
         <div className='flex justify-between items-center bg-white h-16 p-3'>
           <p>PRODUCT</p>
           <p>TOTAL</p>
