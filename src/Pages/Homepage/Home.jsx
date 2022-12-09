@@ -3,7 +3,8 @@ import BodyCategrories from './Sections/BodyCategrories'
 import Deals from './Sections/Deals'
 import Featured from './Sections/Featured'
 import Arrival from './Sections/Arrival'
-import Footer from '../../components/Footer'
+
+import HomeFooter from './Sections/HomeFooter'
 
 const Home = ({product}) => {
   return (
@@ -16,7 +17,7 @@ const Home = ({product}) => {
           <Arrival product={product}/>
          
         </div>
-        <Footer/>
+        <HomeFooter/>
     </div>
   )
 }

@@ -51,7 +51,7 @@ const Navbar = ({ setOpen,user }) => {
     <header>
       <nav className={styles.nav}>
         <div className={styles.div_1}>
-          <img src={logo} className={styles.logo} />
+          <NavLink to="/"><img src={logo} className={styles.logo} /></NavLink>
           <NavLink to="/Shop" className={styles.div_category}>
             <BiMenuAltRight size={22} />
             <h2 className={styles.heading_category}>SHOP BY CATEGORY</h2>
