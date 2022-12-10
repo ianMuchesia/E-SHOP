@@ -17,6 +17,7 @@ const AllProducts = collection(database, "products");
   export const fetchProducts = createAsyncThunk('products/fetchProducts',async()=>{
     const data = await getDocs(AllProducts);
     const products = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    localStorage.setItem('products', JSON.stringify(products))
     return products;
   })
   const productSlice = createSlice({

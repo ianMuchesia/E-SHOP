@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../../store/cartSlice";
+import { showNotification } from "../../../store/uiSlice";
 //tailwind styles
 const styles = {
   body: `grid place-items-center mb-5 `,
@@ -24,6 +25,13 @@ const ShopProduct = ({ id, image, name, price }) => {
         id,
         price,
         image,
+      })
+    );
+    dispatch(
+        showNotification({
+        open: true,
+        message: "Sent Request TO Database Successfully",
+        type: "success",
       })
     );
   };
