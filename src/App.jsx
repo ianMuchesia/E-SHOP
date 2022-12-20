@@ -14,6 +14,11 @@ import Registration from "./Login/Registration";
 import { getAuth } from "firebase/auth";
 import Footer from './components/Footer'
 import SingleProduct from "./Pages/Shop/SingleProduct";
+import Notification from "./components/Notification";
+import { sendCartData } from "./store/cartAction";
+import { fetchCartData } from "./store/cartAction";
+let isFirstRender = true;
+
 function App() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -30,22 +35,48 @@ function App() {
     }
   });
 
+  const notification = useSelector(state=>state.ui.notification)
+
+
   const product = useSelector((state) => state.product);
+  console.log(product)
+  const cartItem = useSelector(state=>state.cart)
   //is user logged in
 
-  //fetch products from firestore
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
-  
+  useEffect(()=>{
+    if(isFirstRender){
+      isFirstRender = false;
+      return;
+    }
+    if(!user)return;
+    if(cartItem.changed){
+      dispatch(sendCartData(cartItem, user.uid))
+    }
 
+  }, [cartItem, dispatch])
+  //fetch products from firestore
+ 
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, []);
+ const localProducts = JSON.parse(localStorage.getItem('Cart'))
+
+  
+ 
+  useEffect(() => {
+    if(!user)return;
+    dispatch(fetchCartData(user.uid));
+  }, [dispatch]);
   //loading spinner
   if (product.loading) return <Spinner message="loading..." />;
-  //console.log(product.products)
+ 
+
+ 
   return (
     <BrowserRouter>
       <Navbar setOpen={setOpen} user={user} />
       <Cart open={open} setOpen={setOpen} user={user} />
+      { notification &&  (<Notification type={notification.type} message={notification.message} notification={notification}/>)}
       <Routes>
         <Route path="/" element={<Home product={product}/>} />
         <Route path="Shop" element={<Shop product={product} />} />

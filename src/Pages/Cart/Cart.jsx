@@ -1,36 +1,36 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import CartItem from "./CartItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { doc, setDoc, collection } from "firebase/firestore";
-import { database } from "../../Config/fireBaseConfig";
-import { useEffect } from "react";
+
+
 export default function Cart({ open, setOpen, user }) {
+  const dispatch = useDispatch();
   //total amount of products
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.itemsList);
 
-
-  
+  console.log(cartItems)
   let total = 0;
   cartItems.forEach((item) => {
     total += item.totalPrice;
   });
 
-  const handleSubmit = async () => {
+ 
+
+
+  /* const handleSubmit = async () => {
     if (user) {
-      await setDoc(doc(database, "Cart", user.uid), {
-        cartItems,
-      });
+      dispatch(sendCartData(cartItems, user.uid))
       navigate("/Checkout");
       setOpen(false);
     } else {
       navigate("/Login");
     }
   };
-
+ */
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -109,12 +109,12 @@ export default function Cart({ open, setOpen, user }) {
                         Shipping and taxes calculated at checkout.
                       </p>
                       <div className="mt-6">
-                        <button
+                        <Link to="/Checkout"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 w-full"
-                          onClick={handleSubmit}
+                          /* onClick={handleSubmit} */
                         >
                           Checkout
-                        </button>
+                        </Link>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
