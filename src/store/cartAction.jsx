@@ -7,30 +7,36 @@ import { replaceData } from "./cartSlice";
 const AllCartItems = collection(database, "Cart");
 
 export const fetchCartData = (id) => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     const fetchHandler = async () => {
-      const data = await getDocs(AllCartItems);
-      const fetchedItems = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      const cartItems = fetchedItems.find(item=>item.id === id)
-      const cartData = cartItems.cart
-      return cartData
-      
+        const data = await getDocs(AllCartItems);
+        const fetchedItems = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        const cartItems = fetchedItems.find((item) => item.id === id);
+       const  cartData = cartItems.cart;
+     
+
+      return cartData;
     };
-    
-    try{
-        const cartData = await fetchHandler()
-        dispatch(replaceData(cartData))
 
+    try {
+      const cartData = await fetchHandler();
+      const {itemsList, totalQuantity} =cartData
+      dispatch(replaceData({
+     cartData
 
-    }catch(error){
-        console.log(error.message)
-        dispatch(
-            showNotification({
-              open: true,
-              message: "failed to load items",
-              type: "error",
-            })
-          );
+    }));
+    } catch (error) {
+      console.log(error.message);
+      dispatch(
+        showNotification({
+          open: true,
+          message: "failed to load items",
+          type: "error",
+        })
+      );
     }
   };
 };
@@ -48,6 +54,7 @@ export const sendCartData = (cart, id) => {
       await setDoc(doc(database, "Cart", id), {
         cart,
       });
+      localStorage.setItem("Cart", JSON.stringify(cart));
       dispatch(
         showNotification({
           open: true,

@@ -39,6 +39,7 @@ function App() {
 
 
   const product = useSelector((state) => state.product);
+  console.log(product)
   const cartItem = useSelector(state=>state.cart)
   //is user logged in
 
@@ -54,9 +55,13 @@ function App() {
 
   }, [cartItem, dispatch])
   //fetch products from firestore
+ 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts())
   }, []);
+ const localProducts = JSON.parse(localStorage.getItem('Cart'))
+
+  
  
   useEffect(() => {
     if(!user)return;
@@ -64,7 +69,7 @@ function App() {
   }, [dispatch]);
   //loading spinner
   if (product.loading) return <Spinner message="loading..." />;
-  //console.log(product.products)
+ 
 
  
   return (

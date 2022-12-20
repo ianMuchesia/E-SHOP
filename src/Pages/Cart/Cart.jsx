@@ -12,6 +12,7 @@ export default function Cart({ open, setOpen, user }) {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.itemsList);
 
+  console.log(cartItems)
   let total = 0;
   cartItems.forEach((item) => {
     total += item.totalPrice;

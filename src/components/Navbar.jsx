@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/shopee.tw_-_png_0-removebg-preview.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,15 +6,24 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { BsCart2 } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link,NavLink, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { categorizeProducts } from "../store/productSlice";
+
+
+
+
+
+
+
+
 //tailwind classNamees
 const styles = {
   nav: "bg-white flex items-center justify-between p-5",
   div_1: `flex items-center`,
   logo: `h-14`,
-  div_category: `h-12 flex items-center gap-2 lg:gap-4 bg-blue-700 p-3 text-white rounded-lg`,
+  div_category: `h-12 flex flex-col items-center gap-2 lg:gap-4 bg-blue-700 p-3 text-white rounded-lg`,
   heading_category: `font-semibold hidden md:block`,
   div_search_input: `h-13 relative md:flex items-center text-gray-200 focus-within:text-black space-x-6 hidden ml-3 lg:ml-5`,
   search_input: `pr-3 pl-10 px-3 py-2 font-semibold placeholder-gray-200 text-black  rounded-xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2  w-[250px] lg:w-[400px] bg-[#bbb] h-13`,
@@ -25,13 +34,24 @@ const styles = {
   account_icon: `pointer-events-none w-8 h-8 absolute top-1/2 transform -translate-y-1/2 right-2 lg:right-5`,
   separator: `font-bold text-4xl m-2`,
   cart: `text-gray-800`,
+  dropdownList: `my-2 cursor-pointer`,
+  dropdown_hr:`border-1 border-gray-200 mx-2`,
 };
 
 const Navbar = ({ setOpen,user }) => {
+  const dispatch = useDispatch()
   const quantity = useSelector((state) => state.cart.totalQuantity);
 
   const navigate = useNavigate()
   const auth = getAuth();
+
+  const [showDropDown, setShowDropDown] = useState(false)
+
+  const handleDropDown=()=>{
+    setShowDropDown(prevDropDown=>!prevDropDown)
+  }
+
+  
   const handleLogin=()=>{
     if(user){
       signOut(auth).then(() => {
@@ -43,7 +63,13 @@ const Navbar = ({ setOpen,user }) => {
       navigate("/Login")
     }
   }
-
+const handleClick=e=>{
+  console.log(e.target.dataset.value)
+  dispatch(categorizeProducts(e.target.dataset.value))
+  setShowDropDown(false)
+  navigate("/Shop")
+  
+}
 
   // Rest of your component code goes here
 
@@ -52,10 +78,35 @@ const Navbar = ({ setOpen,user }) => {
       <nav className={styles.nav}>
         <div className={styles.div_1}>
           <NavLink to="/"><img src={logo} className={styles.logo} /></NavLink>
-          <NavLink to="/Shop" className={styles.div_category}>
+          <div to="/Shop" className={styles.div_category} onMouseEnter={handleDropDown}  onMouseLeave={handleDropDown} >
+            <div className="flex">
             <BiMenuAltRight size={22} />
             <h2 className={styles.heading_category}>SHOP BY CATEGORY</h2>
-          </NavLink>
+            </div>
+            <ul className={`z-[50] bg-white w-full rounded text-gray-500 text-center  ${showDropDown?"":"hidden"}`}>
+              <li className={styles.dropdownList} data-value="bag">Bags<hr className={styles.dropdown_hr}  onClick={handleClick}/></li>
+              <li className={styles.dropdownList}
+              data-value="accessories" onClick={handleClick}>Accessories<hr className={styles.dropdown_hr}/></li>
+              <li className={styles.dropdownList}
+              data-value="furniture"  onClick={handleClick}>Furniture<hr className={styles.dropdown_hr}/></li>
+              <li className={styles.dropdownList}
+              data-value="mobile phones"  onClick={handleClick}>Mobile Phones<hr className={styles.dropdown_hr}/></li>
+            
+              <li className={styles.dropdownList}
+              data-value="keyboards"  onClick={handleClick}>Keyboards<hr className={styles.dropdown_hr}/></li>
+              <li className={styles.dropdownList}
+              data-value="lighting"  onClick={handleClick}>Lighting<hr className={styles.dropdown_hr}/></li>
+              <li className={styles.dropdownList}
+               data-value="canon"  onClick={handleClick}>Canon<hr className={styles.dropdown_hr}/></li>
+              <li className={styles.dropdownList}
+               data-value="clothes"  onClick={handleClick}>Clothes<hr className={styles.dropdown_hr}/></li>
+               <li className={styles.dropdownList}
+               data-value="All"  onClick={handleClick}>All items</li>
+            
+            
+            </ul>
+          </div>
+        
 
           <div className={styles.div_search_input}>
             <input
